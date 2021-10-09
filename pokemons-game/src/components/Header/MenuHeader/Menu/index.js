@@ -1,4 +1,5 @@
-import {useState} from 'react';
+
+import {Link} from 'react-router-dom';
 
 import s from './style.module.css';
 import cn from 'classnames';
@@ -6,19 +7,19 @@ import cn from 'classnames';
 const MENU = [
     {
         title: 'HOME',
-        to: '#welcome',
+        to: '/home',
     },
     {
         title: 'GAME',
-        to: '#game',
+        to: '/game',
     },
     {
         title: 'ABOUT',
-        to: '#about',
+        to: '/about',
     },
     {
         title: 'CONTACT',
-        to: '#contact',
+        to: '/contact',
     },
 ]
 
@@ -40,9 +41,9 @@ const Menu = ({menu}) => {
                 <ul>
                    { MENU.map(({title, to}, index) => (
                         <li key={index}>
-                            <a href={to}>
+                            <Link to={to}>
                                 {title}
-                            </a>
+                            </Link>
                         </li>
                     ))}
                     

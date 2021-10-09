@@ -13,14 +13,16 @@ const Header = ({desc, title, onClickButton }) => {
     return (
         <header className={s.root} >
 
-            {/* <MenuHeader /> */}
+            
 
             <div className={s.forest}> </div>
+            <div className={s.silhouette}> </div>
+            <div className={s.moon}> </div>
             
             <div className={s.container}>
                 <h1>{title}</h1>
                 <p>{desc}</p>
-                <button onClick={handleClick} >Start Game</button>
+                <button onClick={handleClick} className={s.menuButton} >Start Game</button>
             </div>
         </header>
     )

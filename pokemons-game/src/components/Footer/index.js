@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+import s from './style.module.css';
 
 const Footer = ({title, desc}) => {
     return (
-        <div>
+        <div className={s.flex} >
             <h3>{title}</h3>
             <p>{desc}</p>
         </div>

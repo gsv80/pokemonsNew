@@ -1,31 +1,33 @@
 
 import s from './style.module.css';
 
-import MenuHeader from '../../components/Header/MenuHeader';
+import {useHistory} from 'react-router-dom';
+
+// import MenuHeader from '../../components/Header/MenuHeader';
 import Header from '../../components/Header';
 import Layout from '../../components/Layout';
-import Footer from '../../components/Footer';
+// import Footer from '../../components/Footer';
 import PokemonCard from '../../components/PokemonCard';
 import pokemonCards from '../../data/pokemonCards.json';
 
 import urlBg from '../../assets/bg3.jpg';
+import urlBg2 from '../../assets/bg1.jpg';
 
 
 const pokemons = pokemonCards;
 console.log("#### the pokemons imported from PokemonCards ", pokemons);
 
-function HomePage({onChangePage}) {
-
-  const handleClickButton = (page)=> {
-    // console.log('#### <HomePage/>')
-    onChangePage &&onChangePage(page);
+function HomePage() {
+  
+  const history=useHistory();
+  const handleClickButton = ()=> {
+      history.push('/game');
 
   }
-
-    
+  
   return (
     <div >
-      <MenuHeader />
+      
       <Header 
           title = "This is Pokemon Card Game" 
           desc="Simple Triple Triad Card Game"
@@ -49,11 +51,11 @@ function HomePage({onChangePage}) {
           title ="Pokemon Cards"  
           
           colorBg ='#e2e2e2'
-          // urlBg = {urlBg}
+          urlBg = {urlBg2}
       >
         <div className={s.flex}>
 
-              {
+              {/* {
                 pokemons.map((item) => 
                   
                   <PokemonCard 
@@ -64,16 +66,13 @@ function HomePage({onChangePage}) {
                     values={item.values}
                     type={item.type}
                     img={item.img}
-                
+                                    
                 />) 
-              }    
-              </div> 
+              }     */}
+        </div> 
       </Layout>    
           
-      <Footer 
-          title="Finish Page"
-          desc =  "Thanks for visiting"
-      />
+      
     </div>
   );
 }
