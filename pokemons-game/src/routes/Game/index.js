@@ -1,44 +1,68 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useContext } from 'react';
 import {useHistory} from 'react-router-dom';
 import s from './style.module.css';
 
 import PokemonCard from '../../components/PokemonCard';
 import Pokemons from '../../data/pokemonCards.json';
+import fire from '../../services/firebase';
+import database from '../../services/firebase';
+import { FirebaseContext } from '../../context/firbaseContext';
+
+const data = Pokemons[0];
 
 
 const GamePage = () => {
+    const firebase = useContext(FirebaseContext);
+    const [pokemons, setPokemons]=useState({});
+
+    console.log('#### : firebaseCont', firebase);
+
     const history = useHistory();
     const handleClick =() =>{
         history.push('/home');
     };
     
+    useEffect(() =>{
+        firebase.getPokemonsSocket((pokemons) =>{
+            setPokemons(pokemons);
+        });
+    },[])
+
     const padStyle={
-        paddingTop: '70px',
+        paddingTop: '80px',
     };
 
-    const [pokemons, setPokemons]=useState(Pokemons.slice(0,5));
     
     const handleCardClick = (id) => {
-            setPokemons(prev => {
-                return Array.from(prev, (item) => {
-                    if (item.id === id) {
-                        item.active = true;
-                    }
-                    return item;
-                });
-            });    
+        setPokemons(prevState => {
+            return Object.entries(prevState).reduce((acc, item) => {
+                const pokemon = {...item[1]};
+                if (pokemon.id === id) {
+                    pokemon.active = !pokemon.active;
+                };
+                acc[item[0]] = pokemon;
 
+                firebase.postPokemon(item[0], pokemon);
+                // database.ref('pokemons/'+ item[0]).set(pokemon);
+
+                return acc;
+            }, {});
+        });
     };
 
+    const addPokemon =()=>{
+        firebase.addPokemon(data);
+    }
                     
     return (
         <div className={s.flex}>
-            <div style={padStyle} className={s.flex}  >
+            <button style={padStyle} onClick={addPokemon}>ADD NEW POKEMON</button>
+            <div  className={s.flex}  >
                 {
-                    pokemons.map(({name, img, id, type, values, active}) => (
+                    Object.entries(pokemons).map(([key, {name, img, id, type, values, active}]) => (
                     
                     <PokemonCard                     
-                        key={id}
+                        key={key}
                         id={id}
                         name={name}
                         values={values}

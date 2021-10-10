@@ -6,13 +6,7 @@ import cn from 'classnames';
 import cardBack from '../../assets/card-back-side.jpg'
 
 
-const PokemonCard = ({values, name, id, type, img, onClickCard, isActive= false}) => {
-
-    // const [isActive, setActive]=useState(false);
-    
-    // handleClick=()=>{
-    //     setActive(!isActive)
-    // };
+const PokemonCard = ({values, name, id, type, img, onClickCard, isActive= false, minimize, className }) => {
 
     const handleClickCard = () => {
         onClickCard && onClickCard (id);

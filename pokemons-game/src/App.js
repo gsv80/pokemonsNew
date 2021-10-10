@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useRouteMatch, Switch, Route, Redirect } from 'react-router-dom';
 import cn from 'classnames';
 
@@ -13,13 +13,23 @@ import ContactPage from './routes/Contact';
 import Footer from './components/Footer';
 
 import s from './style.module.css'
+import { PokemonContext } from './context/pokemonContext';
+import { FirebaseContext} from './context/firbaseContext';
+import Firebase from './services/firebase';
 
 function App() {
-
+  
   const match = useRouteMatch('/');
-  console.log('#### match', match);
+  // console.log('#### match', match);
 
-  return (     
+   return (     
+    <FirebaseContext.Provider value={
+      new Firebase() 
+    }>
+    
+    <PokemonContext.Provider value={{
+      
+    }}>
       <Switch> 
         <Route path="/404" component= {NotFound}/>
         <Route>
@@ -41,10 +51,9 @@ function App() {
               <Footer title='Thanks for vsiting' desc='Pokemons-Game' />
           </>
         </Route>
-        
-
-
      </Switch>
+    </PokemonContext.Provider>
+    </FirebaseContext.Provider>
     
   )
 
