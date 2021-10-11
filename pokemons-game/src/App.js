@@ -5,7 +5,7 @@ import cn from 'classnames';
 import './App.css';
 
 import HomePage from './routes/Home';
-import GamePage from  './routes/Game';
+import GamePage from  './routes/Game/routes/Start';
 import MenuHeader from './components/Header/MenuHeader';
 import About from './routes/About';
 import NotFound from './routes/NotFound';
@@ -13,7 +13,6 @@ import ContactPage from './routes/Contact';
 import Footer from './components/Footer';
 
 import s from './style.module.css'
-import { PokemonContext } from './context/pokemonContext';
 import { FirebaseContext} from './context/firbaseContext';
 import Firebase from './services/firebase';
 
@@ -25,11 +24,10 @@ function App() {
    return (     
     <FirebaseContext.Provider value={
       new Firebase() 
+      
     }>
     
-    <PokemonContext.Provider value={{
-      
-    }}>
+    
       <Switch> 
         <Route path="/404" component= {NotFound}/>
         <Route>
@@ -52,7 +50,7 @@ function App() {
           </>
         </Route>
      </Switch>
-    </PokemonContext.Provider>
+    
     </FirebaseContext.Provider>
     
   )

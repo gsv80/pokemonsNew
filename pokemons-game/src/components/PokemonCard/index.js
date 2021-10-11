@@ -6,7 +6,7 @@ import cn from 'classnames';
 import cardBack from '../../assets/card-back-side.jpg'
 
 
-const PokemonCard = ({values, name, id, type, img, onClickCard, isActive= false, minimize, className }) => {
+const PokemonCard = ({values, name, id, type, img, onClickCard, isActive, minimize, className, isSelected }) => {
 
     const handleClickCard = () => {
         onClickCard && onClickCard (id);
@@ -14,9 +14,11 @@ const PokemonCard = ({values, name, id, type, img, onClickCard, isActive= false,
 
     return (
         
-        <div className={s.root} onClick={handleClickCard}>
-            <div className={cn(s.pokemonCard, {
-                [s.active] : isActive 
+        
+            <div onClick={handleClickCard}
+                className={cn(className, s.pokemonCard, {
+                    [s.active] : isActive ,
+                    [s.selected] : isSelected,
                 })}>
                 <div className={s.cardFront}>
                     <div className={cn(s.wrap, s.front)}>
@@ -30,23 +32,25 @@ const PokemonCard = ({values, name, id, type, img, onClickCard, isActive= false,
                             <div className={s.imgContainer}>
                                 <img src={img} alt={name} />
                             </div>
-                            <div className={s.info}>
+                            { !minimize && (<div className={s.info}>
                                 <span className={s.number}>#{id}</span>
-                                <h3 className={s.name}>{name}</h3>
-                                <small className={s.type}>Type: <span>{type}</span></small>
-                            </div>
+                                <h3 className={s.name}>
+                                    {name}
+                                </h3>
+                                <small className={s.type}>
+                                    Type: <span>{type}</span>
+                                </small>
+                            </div>) }
                         </div>
                     </div>
                 </div>
 
                 <div className={s.cardBack}>
-                    <div className={cn(s.wrap, s.back)}>
-                        <img src={cardBack} alt="Сard Backed" />
-                    </div>
+                    <div className={cn(s.wrap, s.back)} />
                 </div>
 
             </div>
-        </div>
+        
     )
 }
 
